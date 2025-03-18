@@ -25,12 +25,12 @@ contract ForTesting {
     }
 
     function deposit() external payable {
-        require(msg.value > 0, "Must send ETH");
+        require(msg.value > 0, "Must send Coins");
         balances[msg.sender] += msg.value;
         emit Deposited(msg.sender, msg.value);
     }
 
-    function withdraw(uint256 _amount) external {
+    function withdraw(uint256 _amount) external onlyOwner {
         require(balances[msg.sender] >= _amount, "Insufficient balance");
         balances[msg.sender] -= _amount;
         payable(msg.sender).transfer(_amount);
